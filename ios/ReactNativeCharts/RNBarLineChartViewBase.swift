@@ -177,4 +177,13 @@ class RNBarLineChartViewBase: RNYAxisChartViewBase {
     func setVisibleXRangeMaximum(_ maxXRange: Double) {
         barLineChart.setVisibleXRangeMaximum(maxXRange);
     }
+
+    func setVisibleXRange(_ config: NSDictionary) {
+        let json = BridgeUtils.toJson(config)
+
+        let minXRange = json["minXRange"].double != nil ? CGFloat(json["minXRange"].doubleValue) : 1
+        let maxXRange = json["maxXRange"].double != nil ? CGFloat(json["maxXRange"].doubleValue) : 1
+
+        barLineChart.setVisibleXRange(minXRange: minXRange, maxXRange: maxXRange)
+    }
 }

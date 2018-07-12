@@ -170,7 +170,7 @@ class RNBarLineChartViewBase: RNYAxisChartViewBase {
         barLineChart.setScaleMinima(scaleX, scaleY: scaleY)
     }
 
-    func setVisibleXRangeMinimum(_ minXRange: NSNumber) {
+    func setVisibleXRangeMinimum(_ minXRange: Double) {
         barLineChart.setVisibleXRangeMinimum(minXRange);
     }
 }

@@ -173,4 +173,8 @@ class RNBarLineChartViewBase: RNYAxisChartViewBase {
     func setVisibleXRangeMinimum(_ minXRange: Double) {
         barLineChart.setVisibleXRangeMinimum(minXRange);
     }
+
+    func setVisibleXRangeMaximum(_ maxXRange: Double) {
+        barLineChart.setVisibleXRangeMaximum(maxXRange);
+    }
 }

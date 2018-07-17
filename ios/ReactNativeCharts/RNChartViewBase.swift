@@ -408,6 +408,16 @@ open class RNChartViewBase: UIView, ChartViewDelegate {
 
               axis.valueFormatter = DefaultAxisValueFormatter(formatter: customFormatter);
           }
+        } else if valueFormatter["format"].string != nil {
+              let customFormatter = NumberFormatter()
+              customFormatter.positiveFormat = valueFormatter["format"].stringValue
+              customFormatter.negativeFormat = valueFormatter["format"].stringValue
+
+              if valueFormatter["locale"].string != nil {
+                customFormatter.locale = Locale(identifier: valueFormatter["locale"].stringValue)
+              }
+
+              axis.valueFormatter = DefaultAxisValueFormatter(formatter: customFormatter);
         }
 
         if config["centerAxisLabels"].bool != nil {

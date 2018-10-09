@@ -448,6 +448,9 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
             }
         } else if (BridgeUtils.validate(propMap, ReadableType.Array, "valueFormatter")) {
             axis.setValueFormatter(new IndexAxisValueFormatter(BridgeUtils.convertToStringArray(propMap.getArray("valueFormatter"))));
+        } else if (BridgeUtils.validate(propMap, ReadableType.Map, "valueFormatter")) {
+            ReadableMap valueFormatter = propMap.getMap("valueFormatter");
+            axis.setValueFormatter(new CustomFormatter(valueFormatter.getString("format")));
         }
 
         if (BridgeUtils.validate(propMap, ReadableType.Boolean, "centerAxisLabels")) {

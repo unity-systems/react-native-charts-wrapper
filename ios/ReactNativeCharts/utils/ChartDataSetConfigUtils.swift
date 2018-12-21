@@ -53,7 +53,9 @@ class ChartDataSetConfigUtils: NSObject {
                 dataSet.valueFormatter = DefaultValueFormatter(formatter: percentFormatter);
             } else if "date" == valueFormatter.stringValue {
                 let valueFormatterPattern = config["valueFormatterPattern"].stringValue;
-                dataSet.valueFormatter = ChartDateFormatter(pattern: valueFormatterPattern);
+                let since = config["since"].double != nil ? config["since"].doubleValue : 0
+                let timeUnit = config["timeUnit"].string != nil ? config["timeUnit"].stringValue : "MILLISECONDS"
+                dataSet.valueFormatter = CustomChartDateFormatter(pattern: valueFormatterPattern, since: since, timeUnit: timeUnit);
             } else {
                 let customFormatter = NumberFormatter()
                 customFormatter.positiveFormat = valueFormatter.stringValue
@@ -61,14 +63,17 @@ class ChartDataSetConfigUtils: NSObject {
 
                 dataSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter);
             }
-
+        } else if valueFormatter.array != nil {
+            dataSet.valueFormatter = IndexValueFormatter(values: valueFormatter.arrayValue.map({ $0.stringValue }))
         }
 
         if config["axisDependency"].string != nil {
             dataSet.axisDependency = BridgeUtils.parseAxisDependency(config["axisDependency"].stringValue)
         }
-
-
+        
+        if let font = FontUtils.getFont(config) {
+            dataSet.valueFont = font
+        }
     }
 
     static func commonBarLineScatterCandleBubbleConfig(_ dataSet: BarLineScatterCandleBubbleChartDataSet, config: JSON) {

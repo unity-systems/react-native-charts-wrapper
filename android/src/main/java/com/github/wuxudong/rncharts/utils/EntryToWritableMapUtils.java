@@ -3,7 +3,7 @@ package com.github.wuxudong.rncharts.utils;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
-import com.facebook.react.bridge.WritableNativeMap;
+
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.data.CandleEntry;
@@ -11,12 +11,17 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.RadarEntry;
 
+// import com.facebook.react.bridge.WritableNativeMap;
+import com.facebook.react.bridge.Arguments;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
 import java.util.Map;
+
+// import android.util.Log;
 
 /**
  * Helper utilities to convert from Entry to WritableMap
@@ -27,7 +32,9 @@ public final class EntryToWritableMapUtils {
             return null;
         }
 
-        WritableMap map = new WritableNativeMap();
+        WritableMap map = Arguments.createMap();
+
+        // Log.e("MyComponent", "ololo");
 
         if(entry.getData() instanceof Map) {
             map.putMap("data", convertMapToWritableMap((Map) entry.getData()));
@@ -91,7 +98,7 @@ public final class EntryToWritableMapUtils {
             return null;
         }
 
-        WritableMap map = new WritableNativeMap();
+        WritableMap map = Arguments.createMap();
 
         try {
             Iterator<String> iterator = jsonObject.keys();
